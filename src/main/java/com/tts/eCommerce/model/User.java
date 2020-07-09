@@ -1,27 +1,76 @@
 package com.tts.eCommerce.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Length;
+
+@Entity
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
 	private Long id;
+	
+	@Email(message = "Please provide a valid email")
+	@NotEmpty(message = "Please provide an email")
 	private String email;
+	
 	private String username;
+	
+	@NotEmpty(message = "Please provide a password")
+	@Length(min = 8, message = "A password must have at least 8 characters")
 	private String password;
+	
+	@NotEmpty(message = "Please provide your first name")
 	private String firstName;
+	
+	@NotEmpty(message = "Please provide your last name")
 	private String lastName;
+	
+	private Integer active;
+	
+	@CreationTimestamp
 	private Date createdAt;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 	
 	public User() {}
 
-	public User(String email, String username, String password, String firstName, String lastName, String wishList,
-			Date createdAt) {
+	public User(String email, String username, String password, String firstName, String lastName,
+			Date createdAt, Integer active, Set<Role> roles) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.createdAt = createdAt;
+		this.active = active;
+		this.roles = roles;
+	}
+	
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
 	public String getEmail() {
@@ -76,10 +125,19 @@ public class User {
 		return id;
 	}
 
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", wishList=" + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", active=" + active + ", createdAt="
+				+ createdAt + ", roles=" + roles + "]";
 	}
 	
 }
