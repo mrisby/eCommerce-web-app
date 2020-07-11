@@ -71,7 +71,7 @@ public class CartController {
       }
       return "cart";
   }
-
+  
   @DeleteMapping("/cart")
   public String removeFromCart(@RequestParam long id) {
       Product p = productService.findById(id);

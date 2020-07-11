@@ -1,10 +1,10 @@
 package com.tts.eCommerce.service;
 
 @Service
-public class OrderService {
+public class PurchaseOrderService {
 
-	public Order makePurchaseOrder(Cart cart) {
-		Order thatObject = new Order();
+	public PurchaseOrder makePurchaseOrder(Cart cart) {
+		PurchaseOrder thatObject = new PurchaseOrder();
 		//code
 		return thatObject;
 	}
