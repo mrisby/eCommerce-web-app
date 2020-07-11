@@ -11,7 +11,7 @@ public class PurchaseOrder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "order_id")
+	@Column(name = "purchase_order_id")
 	private Long id;
 
 
