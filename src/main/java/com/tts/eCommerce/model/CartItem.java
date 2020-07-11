@@ -1,5 +1,5 @@
 package com.tts.eCommerce.model;
 
-public class LineItem {
+public class CartItem {
 
 }

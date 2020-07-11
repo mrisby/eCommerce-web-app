@@ -15,42 +15,44 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "product_id")
 	private Long id;
-	
+
 	@NotBlank(message = "Product name is required")
 	private String name;
-	
+
+	// TODO more appropriate for admin??
 	@Positive(message = "Product wholesale price cannot be 0 or negative")
 	private Double wholesalePrice;
-	
+
 	@Positive(message = "Product wholesale price cannot be 0 or negative")
 	private Double retailPrice;
-	
+
 	@NotBlank(message = "Product brand is required")
 	private String brand;
-	
+
 	@NotBlank(message = "Product category is required")
 	private String category;
-	
+
 	private String description;
-	
+
 	@PositiveOrZero(message = "Inventory cannot be negative")
 	private Integer inventory;
-	
+
 	private String image;
-	
+
+	//TODO more appropriate for admin??
 	@CreationTimestamp
 	private Date createdAt;
-	
+
+	//TODO more appropriate for admin??
 	@UpdateTimestamp
 	private Date updatedAt;
-	
+
 	public Product() {}
 
 	public String getName() {
@@ -157,6 +159,31 @@ public class Product {
 				+ retailPrice + ", brand=" + brand + ", category=" + category + ", description=" + description
 				+ ", inventory=" + inventory + ", image=" + image + "]";
 	}
-	
-	
+
+	@Override
+	public int hashCode(){
+	  final int temp = 14;
+	  int ans = 1;
+	  ans = (int)(temp * ans + id);
+	  return ans;
+	}
+
+	@Override
+	public boolean equals(Object obj){
+	  if (this == obj) {
+	    return true;
+	  }
+	  if (obj == null) {
+	    return false;
+	  }
+	  if (this.getClass() != obj.getClass()) {
+	    return false;
+	  }
+	  Product other = (Product)obj;
+	  if (this.id != other.id) {
+	    return false;
+	  }
+	  return true;
+	}
+
 }

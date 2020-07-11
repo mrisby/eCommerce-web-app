@@ -14,12 +14,13 @@ public class Cart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column( name = "cart_id")
+	@Column(name = "cart_id")
 	private Long id;
-	
+
 	private Double subTotal;
 	private Double total;
-	private List<HashMap<Product, Integer>> lineItems;
-	
-	public Cart() {}
+	private List<HashMap<Product, Integer>> cartItems;
+
+	public Cart() {
+	}
 }
