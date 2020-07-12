@@ -18,53 +18,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.model.User;
+import com.tts.eCommerce.service.CartService;
 import com.tts.eCommerce.service.ProductService;
 import com.tts.eCommerce.service.UserService;
 
 @Controller
-@ControllerAdvice
+@RequestMapping("/storefront")
 public class CartController {
   @Autowired
-  ProductService productService;
+  private ProductService productService;
 
   @Autowired
-  UserService userService;
+  private UserService userService;
 
-  @ModelAttribute("loggedInUser")
-  public User loggedInUser() {
-      return userService.getLoggedInUser();
-  }
-
-  @ModelAttribute("cart")
-  public Map<Product, Integer> cart() {
-      User user = loggedInUser();
-      if(user == null) {
-				return null;
-			}
-      System.out.println("Getting cart");
-      return user.getCart();
-  }
-
-  /**
-   * Puts an empty list in the model that thymeleaf can use to sum up the cart total.
-   */
-  @ModelAttribute("list")
-  public List<Double> list() {
-      return new ArrayList<>();
-  }
+@Autowired  
+private CartService cartService;   
 
   @GetMapping("/cart")
   public String showCart() {
       return "cart";
   }
 
-  @PostMapping("/storefront/cart")
+  @PostMapping("/cart")
   public String addToCart(@RequestParam long productId, Cart cart, @RequestParam Integer quantity, Model model) {
   		cart = cartService.addCartItemToCart(cart, productId, quantity);
       return "storefront/cart";
   }
 
-  @PostMapping("/storefront/cart")
+  @PostMapping("/cart")
   public String changeCartCartItemQuantity(@RequestParam Long productId, Cart, cart, @RequestParam Integer quantity, Model model) {
   	cart = cartService.updateCartItemQuantity(cart, productId, quantity);
   	return "storefront/cart";
@@ -75,24 +56,9 @@ public class CartController {
       for(int i = 0; i < id.length; i++) {
           Product p = productService.findById(id[i]);
           setQuantity(p, quantity[i]);
+          //do one by one
       }
       return "cart";
   }
   
-  @DeleteMapping("/cart")
-  public String removeFromCart(@RequestParam long id) {
-      Product p = productService.findById(id);
-      setQuantity(p, 0);
-      return "cart";
-  }
-
-  private void setQuantity(Product p, int quantity) {
-      if(quantity > 0) {
-				cart().put(p, quantity);
-			} else {
-				cart().remove(p);
-			}
-
-      userService.updateCart(cart());
-  }
 }
