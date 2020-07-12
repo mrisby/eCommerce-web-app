@@ -25,7 +25,6 @@ public class Product {
 	@NotBlank(message = "Product name is required")
 	private String name;
 
-	// TODO more appropriate for admin??
 	@Positive(message = "Product wholesale price cannot be 0 or negative")
 	private Double wholesalePrice;
 
@@ -45,11 +44,9 @@ public class Product {
 
 	private String image;
 
-	//TODO more appropriate for admin??
 	@CreationTimestamp
 	private Date createdAt;
 
-	//TODO more appropriate for admin??
 	@UpdateTimestamp
 	private Date updatedAt;
 

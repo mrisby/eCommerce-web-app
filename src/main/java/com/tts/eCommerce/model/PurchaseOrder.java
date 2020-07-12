@@ -14,5 +14,10 @@ public class PurchaseOrder {
 	@Column(name = "purchase_order_id")
 	private Long id;
 
+	public static Order makePurchaseOrder(Cart cart) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

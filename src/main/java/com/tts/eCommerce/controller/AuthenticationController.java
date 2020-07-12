@@ -16,7 +16,8 @@ import com.tts.eCommerce.service.UserService;
 
 @Controller
 class AuthenticationController {
-  @Autowired
+
+	@Autowired
   private UserService userService;
 
   @GetMapping("/signin")

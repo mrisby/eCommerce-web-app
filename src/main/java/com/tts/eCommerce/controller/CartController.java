@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tts.eCommerce.model.Cart;
 import com.tts.eCommerce.model.Product;
 import com.tts.eCommerce.model.User;
 import com.tts.eCommerce.service.ProductService;
@@ -56,11 +58,16 @@ public class CartController {
       return "cart";
   }
 
-  @PostMapping("/cart")
-  public String addToCart(@RequestParam long id) {
-      Product p = productService.findById(id);
-      setQuantity(p, cart().getOrDefault(p, 0) + 1);
-      return "cart";
+  @PostMapping("/storefront/cart")
+  public String addToCart(@RequestParam long productId, Cart cart, @RequestParam Integer quantity, Model model) {
+  		cart = cartService.addCartItemToCart(cart, productId, quantity);
+      return "storefront/cart";
+  }
+
+  @PostMapping("/storefront/cart")
+  public String changeCartCartItemQuantity(@RequestParam Long productId, Cart, cart, @RequestParam Integer quantity, Model model) {
+  	cart = cartService.updateCartItemQuantity(cart, productId, quantity);
+  	return "storefront/cart";
   }
 
   @PatchMapping("/cart")

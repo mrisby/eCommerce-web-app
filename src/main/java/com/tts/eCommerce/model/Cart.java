@@ -17,9 +17,9 @@ public class Cart {
 	@Column(name = "cart_id")
 	private Long id;
 
-	private Double subTotal;
-	private Double total;
-	private List<HashMap<Product, Integer>> cartItems;
+	public Double subTotal;
+	public Double total;
+	public List<HashMap<Product, Integer>> cartItems;
 
 	public Cart() {
 	}

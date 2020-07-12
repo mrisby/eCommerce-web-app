@@ -22,7 +22,7 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(user);
     }
 
     public void saveNew(User user) {
@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public User getLoggedInUser() {
+    public com.tts.eCommerce.model.User getLoggedInUser() {
         return findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
