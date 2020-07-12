@@ -4,24 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tts.eCommerce.model.Cart;
-import com.tts.eCommerce.model.Order;
-import com.tts.eCommerce.repository.OrderRepository;
+import com.tts.eCommerce.model.PurchaseOrder;
+import com.tts.eCommerce.repository.PurchaseOrderRepository;
+
 
 @Service
-public class OrderService {
+public class PurchaseOrderService {
 
 	@Autowired
-	private OrderRepository orderRepository;
+	private PurchaseOrderRepository purchaseOrderRepository;
 
-	public Order makePurchaseOrder(Cart cart) {
-		Order thatObject = new Order();
+	public PurchaseOrder makePurchaseOrder(Cart cart) {
+		PurchaseOrder thatObject = new PurchaseOrder();
 		//code
 		return thatObject;
 	}
 
-	public Double salesTax(Double subTotal) {
+	//public Double salesTax(Double subTotal) {
 		//math
-		Double salesTax = new Double();
-		return salesTax;
-	}
+	//	return salesTax;
+	// }
 }
+
+	
