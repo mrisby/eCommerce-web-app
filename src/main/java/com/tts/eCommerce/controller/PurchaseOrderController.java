@@ -6,16 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tts.eCommerce.model.Cart;
-import com.tts.eCommerce.model.Order;
+import com.tts.eCommerce.model.PurchaseOrder;
 
 @Controller
 @RequestMapping
-public class OrderController {
+public class PurchaseOrderController {
 
 	@GetMapping("/checkout")
 	public String checkout(Cart cart, Model model) {
-		Order purchaseOrder = Order.makePurchaseOrder(cart);
+		//user current user login
+		PurchaseOrder purchaseOrder = PurchaseOrder.makePurchaseOrder(cart);
 		model.addAttribute("purchaseOrder", purchaseOrder);
 		return "storefront/invoice";
+		
+		//send a cart
+		
+		
+
+		
 	}
 }
